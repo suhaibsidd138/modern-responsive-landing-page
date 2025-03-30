@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Connecting Innovation</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        :root {
+            --primary: #121212;
+            --accent: #f5be00;
+            --light: #f9f9f9;
+            --gray: #767676;
+            --transition: all 0.3s ease;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--primary);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin-top: 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 20px 0;
+            z-index: 1000;
+            background: rgba(249, 249, 249, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(249, 249, 249, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55%;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .shape {
+            position: absolute;
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            top: 20%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+        
+        .shape-2 {
+            bottom: 10%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            opacity: 0.05;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--accent);
+            border-radius: 8px;
+            z-index: -1;
+        }
+        
+        .about-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .about-card {
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .about-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* Services Section */
+        .services {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .services .section-title::after {
+            background: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .service-card:hover::before {
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .service-card h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .service-card p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Why Us Section */
+        .why-us {
+            background-color: white;
+        }
+        
+        .why-us-content {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .why-us-text {
+            flex: 1;
+        }
+        
+        .why-us-image {
+            flex: 1;
+        }
+        
+        .why-us-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 30px;
+            background: var(--light);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            color: var(--gray);
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo span {
+            color: var(--accent);
+        }
+        
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .about-content, 
+            .why-us-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .about-image::before {
+                display: none;
+            }
+            
+            .about-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 0;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background: white;
+                text-align: center;
+                padding: 30px 0;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .mobile-menu.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .mobile-menu.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .hero {
+                text-align: center;
+                padding-top: 120px;
+                padding-bottom: 60px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero-image {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 40px;
+            }
+            
+            .shape {
+                display: none;
+            }
+            
+            .about-cards,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Nexus<span>.</span></a>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#services">Services</a>
+                    <a href="#why-us">Why Us</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Connecting Innovation to Future</h1>
+                <p>We specialize in transforming complex ideas into elegant solutions that drive meaningful change and business growth.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn">Get Started</a>
+                    <a href="#services" class="btn btn-outline">Our Services</a>
+                </div>
+            </div>
+        </div>
+        <img src="/api/placeholder/600/400" alt="Hero Image" class="hero-image fade-in">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title fade-in">About Us</h2>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <p>Nexus was founded on a simple but powerful idea: to help businesses navigate the complex digital landscape with clarity and purpose. We believe that technology should serve people, not the other way around.</p>
+                    <p>Our team brings together diverse expertise in design, development, and strategy to create solutions that are as human-centered as they are technologically advanced.</p>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="/api/placeholder/500/350" alt="About Us">
+                </div>
+            </div>
+            <div class="about-cards">
+                <div class="about-card fade-in">
+                    <div class="about-card-icon">★</div>
+                    <h3>Our Mission</h3>
+                    <p>To empower businesses through innovative technology solutions that drive growth and create lasting value.</p>
+                </div>
+                <div class="about-card fade-in">
+                    <div class="about-card-icon">✦</div>
+                    <h3>Our Vision</h3>
+                    <p>To be the catalyst for digital transformation, setting new standards for excellence and innovation.</p>
+                </div>
+                <div class="about-card fade-in">
+                    <div class="about-card-icon">♦</div>
+                    <h3>Our Values</h3>
+                    <p>Integrity, collaboration, innovation, and a relentless focus on delivering exceptional results for our clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <h3>Digital Strategy</h3>
+                    <p>We help you navigate the digital landscape with a clear roadmap that aligns technology with your business objectives.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <h3>UX/UI Design</h3>
+                    <p>Creating intuitive, engaging experiences that delight users and strengthen your brand connection.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <h3>Web Development</h3>
+                    <p>Building robust, scalable platforms that leverage cutting-edge technologies and best practices.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <h3>Mobile Applications</h3>
+                    <p>Designing and developing native and cross-platform mobile applications that extend your reach.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <h3>E-commerce Solutions</h3>
+                    <p>End-to-end solutions that optimize the customer journey and drive conversions.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <h3>Digital Marketing</h3>
+                    <p>Data-driven strategies that increase visibility, engagement, and ROI across digital channels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="why-us">
+        <div class="container">
+            <h2 class="section-title fade-in">Why Choose Us</h2>
+            <div class="why-us-content">
+                <div class="why-us-text fade-in">
+                    <p>In a crowded market, what sets Nexus apart is our unique approach that combines technical excellence with strategic thinking and creative vision. We don't just build solutions; we build partnerships.</p>
+                    <p>Our multidisciplinary team ensures that every project benefits from diverse perspectives and expertise, resulting in solutions that are innovative, effective, and aligned with your business goals.</p>
+                </div>
+                <div class="why-us-image fade-in">
+                    <img src="/api/placeholder/500/300" alt="Why Choose Us">
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat fade-in">
+                    <div class="stat-number" data-count="120">0</div>
+                    <div class="stat-text">Projects Completed</div>
+                </div>
+                <div class="stat fade-in">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-text">Happy Clients</div>
+                </div>
+                <div class="stat fade-in">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-text">Years Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3>Let's Start a Conversation</h3>
+                    <p>Ready to discuss your project? We're here to help turn your vision into reality. Reach out to us through any of the channels below or fill out the form to start the conversation.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">✉</div>
+                            <div>hello@nexus.co</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">☏</div>
+                            <div>+1 (555) 123-4567</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">⌖</div>
+                            <div>123 Innovation Drive, Tech City, TC 10101</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                        <div id="successMessage" class="success-message">
+                            Your message has been sent successfully!
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">Nexus<span>.</span></div>
+                    <p class="footer-text">Transforming ideas into digital realities. We create innovative solutions that connect businesses with their customers.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">ƒ</a>
+                        <a href="#" class="social-link">𝕏</a>
+                        <a href="#" class="social-link">𝕀</a>
+                        <a href="#" class="social-link">𝕃</a>
+                    </div>
+                </div>
+                <div class="footer-nav">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#home">Home</a>
+                        <a href="#about">About Us</a>
+                        <a href="#services">Services</a>
+                        <a href="#why-us">Why Us</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-services">
+                    <h4 class="footer-title">Services</h4>
+                    <div class="footer-links">
+                        <a href="#">Digital Strategy</a>
+                        <a href="#">UX/UI Design</a>
+                        <a href="#">Web Development</a>
+                        <a href="#">Mobile Applications</a>
+                        <a href="#">E-commerce</a>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <h4 class="footer-title">Legal</h4>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                        <a href="#">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Nexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Scroll Header Effect
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade In Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    fadeInObserver.unobserve(entry.
